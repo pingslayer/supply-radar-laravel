@@ -9,6 +9,13 @@ class Disruption extends Model
 {
     use HasFactory;
 
+    protected static function booted(): void
+    {
+        static::created(function (Disruption $disruption) {
+            \App\Events\DisruptionCreated::dispatch($disruption);
+        });
+    }
+
     protected $fillable = [
         'title',
         'type',
