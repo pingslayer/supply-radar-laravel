@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('disruptions:ingest')->hourly();
+Schedule::job(new \App\Jobs\ProcessPendingAlertsJob)->everyMinute();

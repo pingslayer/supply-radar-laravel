@@ -1,0 +1,38 @@
+// 1. Create a mock company
+$company = App\Models\Company::create(['name' => 'Acme Logistics']);
+
+// 2. Create a supply location precisely near our Mock disruption (Los Angeles)
+$location = App\Models\SupplyLocation::create([
+    'company_id' => $company->id,
+    'name' => 'LA Warehouse',
+    'country' => 'US',
+    'latitude' => 34.0000,
+    'longitude' => -118.2000,
+    'industry' => 'Warehousing'
+]);
+
+// Notice we make sure company_id matches exactly!
+$user = App\Models\User::factory()->create([
+    'company_id' => App\Models\Company::first()->id, 
+    'email' => 'admin@test.com'
+]);
+
+// 3. We also create one Far Away (New York) to prove it gets ignored
+$farLocation = App\Models\SupplyLocation::create([
+    'company_id' => $company->id,
+    'name' => 'NY Warehouse',
+    'country' => 'US',
+    'latitude' => 40.7128,
+    'longitude' => -74.0060,
+    'industry' => 'Warehousing'
+]);
+
+// 4. Trigger the exact same command the scheduler will run
+Artisan::call('disruptions:ingest');
+
+// 5. Look at the generated alerts
+App\Models\Alert::with('disruption', 'company')->get()->toArray();
+
+
+// Notice we use dispatch() instead of dispatchSync() here
+App\Jobs\ProcessPendingAlertsJob::dispatch();
