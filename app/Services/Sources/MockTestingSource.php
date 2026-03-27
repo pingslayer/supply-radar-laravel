@@ -30,6 +30,17 @@ class MockTestingSource implements DisruptionSource
                 'severity' => 'critical',
                 'source' => 'Mock Data',
                 'reported_at' => now()->subHours(2),
+            ],
+            [
+                'title' => 'Magnitude 7.2 Earthquake',
+                'type' => 'Natural Disaster',
+                'description' => 'A massive earthquake hit the greater Tokyo area, halting warehouse operations.',
+                'country' => 'JP',
+                'latitude' => 35.6800, // Just a few kilometers from the Tokyo Warehouse
+                'longitude' => 139.6900,
+                'severity' => 'critical',
+                'source' => 'Mock Data',
+                'reported_at' => now(),
             ]
         ];
     }
