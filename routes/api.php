@@ -12,7 +12,6 @@ use App\Http\Controllers\Api\AuthController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/debug/ingest', [\App\Http\Controllers\Api\DebugController::class, 'ingest']);
 Route::get('/disruptions', [\App\Http\Controllers\Api\DisruptionController::class, 'index']);
 
 // Protected SaaS Customer Routes
@@ -27,6 +26,3 @@ Route::middleware('auth:sanctum')->group(function () {
     // View your alerts
     Route::get('/alerts', [\App\Http\Controllers\Api\AlertController::class, 'index']);
 });
-
-// Original test routes now redundant or public:
-Route::get('/companies/{company}/supply-locations', [\App\Http\Controllers\Api\CompanySupplyLocationController::class, 'index']);
