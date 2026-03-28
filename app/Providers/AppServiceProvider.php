@@ -11,10 +11,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(
-            \App\Contracts\DisruptionSource::class,
-            \App\Services\Sources\MockTestingSource::class
-        );
+        $this->app->singleton(\App\Services\DisruptionManager::class, function ($app) {
+            $manager = new \App\Services\DisruptionManager();
+            
+            // Register real-world sources
+            $manager->addSource(new \App\Services\Sources\GdacsSource());
+            $manager->addSource(new \App\Services\Sources\ReliefWebSource());
+            
+            // Optionally keep the mock source for testing if needed
+            // $manager->addSource(new \App\Services\Sources\MockTestingSource());
+            
+            return $manager;
+        });
     }
 
     /**

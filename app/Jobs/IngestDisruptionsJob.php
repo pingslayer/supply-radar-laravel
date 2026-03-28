@@ -25,9 +25,9 @@ class IngestDisruptionsJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(DisruptionSource $source): void
+    public function handle(\App\Services\DisruptionManager $manager): void
     {
-        $disruptions = $source->fetch();
+        $disruptions = $manager->fetchAll();
 
         foreach ($disruptions as $data) {
             // Using title and source as a naive unique identifier for now
