@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Manage your supply chain
     Route::get('/supply-locations', [\App\Http\Controllers\Api\Customer\SupplyLocationController::class, 'index']);
     Route::post('/supply-locations', [\App\Http\Controllers\Api\Customer\SupplyLocationController::class, 'store']);
+    Route::get('/supply-locations/{id}', [\App\Http\Controllers\Api\Customer\SupplyLocationController::class, 'show']);
+    Route::put('/supply-locations/{id}', [\App\Http\Controllers\Api\Customer\SupplyLocationController::class, 'update']);
     Route::delete('/supply-locations/{id}', [\App\Http\Controllers\Api\Customer\SupplyLocationController::class, 'destroy']);
     
     // View your alerts

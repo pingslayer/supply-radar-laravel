@@ -17,6 +17,14 @@ class SupplyLocationController extends Controller
         return response()->json($locations);
     }
 
+    public function show(Request $request, $id)
+    {
+        $location = SupplyLocation::where('company_id', $request->user()->company_id)
+            ->findOrFail($id);
+            
+        return response()->json($location);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -37,6 +45,26 @@ class SupplyLocationController extends Controller
         ]);
 
         return response()->json($location, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $location = SupplyLocation::where('company_id', $request->user()->company_id)
+            ->findOrFail($id);
+
+        $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'country' => 'nullable|string|max:3',
+            'latitude' => 'sometimes|required|numeric',
+            'longitude' => 'sometimes|required|numeric',
+            'industry' => 'nullable|string|max:255',
+        ]);
+
+        $location->update($request->only([
+            'name', 'country', 'latitude', 'longitude', 'industry'
+        ]));
+
+        return response()->json($location);
     }
 
     public function destroy(Request $request, $id)
