@@ -44,7 +44,7 @@ class GdacsSource implements DisruptionSource
                     'title' => (string) $item->title,
                     'type' => $this->mapEventType((string) $gdacsMeta->eventtype),
                     'description' => (string) $item->description,
-                    'country' => (string) ($gdacsMeta->country ?? $iso3),
+                    'country' => strtoupper((string) $iso3),
                     'latitude' => (float) ($point->lat ?? $fallback['lat'] ?? 0),
                     'longitude' => (float) ($point->long ?? $fallback['lng'] ?? 0),
                     'severity' => $this->mapSeverity((string) $gdacsMeta->severity),

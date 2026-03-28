@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('type');
             $table->text('description')->nullable();
-            $table->string('country')->nullable();
+            $table->string('country', 3)->nullable();
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 11, 7);
             $table->string('severity')->default('medium');

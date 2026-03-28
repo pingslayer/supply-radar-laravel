@@ -21,7 +21,7 @@ class SupplyLocationController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'country' => 'nullable|string|max:2',
+            'country' => 'nullable|string|max:3',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'industry' => 'nullable|string|max:255',
